@@ -10,8 +10,7 @@ app = Flask(__name__)
 # 🔗 MongoDB Atlas Connection (Cloud)
 # ==========================================
 # Replace <username> and <password> with your Atlas credentials
-MONGO_URI = "mongodb+srv://flaskuser:flask123@cluster0.xmpclqw.mongodb.net/?appName=Cluster0"
-
+MONGO_URI = "your-mongodb-atlas-uri"
 try:
     client = MongoClient(MONGO_URI)
     db = client["emotion_game"]         # Database name
@@ -85,3 +84,4 @@ def history():
 # ==========================================
 if __name__ == "__main__":
     app.run(debug=True)
+
