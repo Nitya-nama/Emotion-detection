@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emotion History 📊</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Emotion History</h1>
+    <a href="/" class="back-btn">⬅ Back to Game</a>
+
+    <div style="width: 80%; max-width: 600px; margin: 20px auto;">
+    <canvas id="emotionChart"></canvas>
+    </div>
+
+
+    <h2 style="margin-top: 30px;">🧾 Your Past Emotions</h2>
+    <ul id="emotionList"></ul>
+  </div>
+
+  <script>
+    const records = {{ records | tojson }};
+    const emotionCounts = {};
+
+    // Count each emotion type
+    records.forEach(r => {
+      const emotion = r.emotion.split(" ")[0];
+      emotionCounts[emotion] = (emotionCounts[emotion] || 0) + 1;
+    });
+
+    // Render chart
+    const ctx = document.getElementById("emotionChart").getContext("2d");
+    new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: Object.keys(emotionCounts),
+        datasets: [{
+          data: Object.values(emotionCounts),
+          backgroundColor: ["#f87171", "#60a5fa", "#facc15", "#4ade80", "#c084fc", "#f97316"]
+        }]
+      },
+      options: { plugins: { legend: { labels: { color: "#fff" } } } }
+    });
+    
+
+
+    // Render emotion history list
+    const list = document.getElementById("emotionList");
+    records.reverse().forEach(r => {
+      const item = document.createElement("li");
+      item.textContent = `${r.text} → ${r.emotion}`;
+      list.appendChild(item);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emotion Detector Game 🎭</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎭 Emotion Detector Game</h1>
+    <p class="subtitle">Type something and see how the AI feels about it!</p>
+
+    <textarea id="userText" placeholder="Type your message here..."></textarea>
+    <button id="detectBtn">Detect Emotion</button>
+    <!-- History Button -->
+    <a href="/history" class="history-btn">📊 View History</a>
+
+
+    <div id="result" class="hidden">
+      <p>Your Emotion:</p>
+      <h2 id="emotionText">Detecting...</h2>
+      <div id="emojiDisplay"></div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
